@@ -27,3 +27,24 @@ if (frontOfArray.join("") == reversedBackOfArray.join("")) {
   return false;
 }
 }
+
+//Telephone number validator - worked but didn't pass all the tests. Need to look at checking the length of the different mini-strings of numberals
+
+function telephoneCheck(str) {
+
+//Check if first character is numeral or bracket around the first 3 digits
+  const numeral = /^[0-9]/;
+  if (str.charAt(0).match(numeral) || 
+  (str.charAt(0) === "(" && str.charAt(4) === ")")) { /* start of if(1) */
+
+//Remove all the non-numeric chracters
+    const justNumerals = str.replace(/[^a-z0-9]/gi, '');
+
+if (justNumerals.charAt(0) === "1" &&
+    justNumerals.length === 11) { /* start of if(2) */
+      return true; 
+      } else if (justNumerals.length === 10) { /* end of if(2), start of if (3) */
+      return true;
+      } return false;/* end of if(3) */
+  } /* end of if(1) */
+}
