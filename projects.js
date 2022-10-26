@@ -28,6 +28,47 @@ if (frontOfArray.join("") == reversedBackOfArray.join("")) {
 }
 }
 
+//Caesars Cipher
+
+const alpha = [
+  'A', 'B', 'C', 'D', 'E',
+  'F', 'G', 'H', 'I', 'J', 'K',
+  'L', 'M', 'N', 'O', 'P', 'Q',
+  'R', 'S', 'T', 'U', 'V', 'W',
+  'X', 'Y', 'Z', '.', '?', '!', 
+  ' '
+];
+
+function rot13(str) {
+// find the position in the alphabet of each character and store in array
+  let characterIndex = [];
+  for (let i = 0; i < str.length; i++) {
+    for (let i2 = 0; i2 < alpha.length; i2++) {
+      if (str.charAt(i) === alpha[i2]) {
+        characterIndex.push(i2);
+      }
+    }
+  }
+//array to receive deciphered characters
+  let deciphered = [];
+
+//For each indexed letter in the string...
+for (let i3 = 0; i3 <characterIndex.length; i3++) {
+  //Separate what to do if the letters are a to m, n to z, or other character
+  characterIndex[i3] < 13 ?
+      deciphered.push(alpha[characterIndex[i3]+13])
+  
+  : characterIndex[i3] > 12 && characterIndex[i3] < 26 ?
+      deciphered.push(alpha[characterIndex[i3]-13])
+      
+  : deciphered.push(alpha[characterIndex[i3]]);
+}
+ return deciphered.join("");
+}
+rot13("SERR PBQR PNZC");
+
+
+
 //Telephone number validator - worked but didn't pass all the tests. Need to look at checking the length of the different mini-strings of numberals
 
 function telephoneCheck(str) {
