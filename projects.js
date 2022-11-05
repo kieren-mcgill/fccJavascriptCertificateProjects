@@ -89,3 +89,26 @@ if (justNumerals.charAt(0) === "1" &&
       } return false;/* end of if(3) */
   } /* end of if(1) */
 }
+
+
+//Roman Numeral Converter
+
+const digitIndex = [[0], [1], [1, 1], [1, 1, 1], [4], 
+[5], [5, 1], [5, 1, 1], [5, 1, 1, 1], [9]];
+
+const romanDigits = [{0: "", 1: "M"}, {0: "", 1: "C", 4: "CD", 5: "D", 9: "CM"},{0: "", 1: "X", 4: "XL", 5: "L", 9: "XC"}, {0: "", 1: "I", 4: "IV", 5: "V", 9: "IX"}]
+   
+function convertToRoman(num) {
+  let numberAsArray = Array.from(String(num), Number);
+  let digitAsNumeral = [];
+  
+  for (let j = 0; j < numberAsArray.length; j++) {
+    
+    let chosenDigitIndex = digitIndex[numberAsArray[j]];
+    
+  for (let i = 0; i < chosenDigitIndex.length; i++) {
+    digitAsNumeral.push(romanDigits[j + (4 - numberAsArray.length)][chosenDigitIndex[i]]);
+    } 
+  }
+  return digitAsNumeral.join("");
+}
