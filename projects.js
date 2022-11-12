@@ -71,23 +71,19 @@ rot13("SERR PBQR PNZC");
 
 //Telephone number validator - worked but didn't pass all the tests. Need to look at checking the length of the different mini-strings of numberals
 
+const regex1 = /^\b\d{10}\b$/g;
+const regex2 = /^\(\d{3}\)\d{3}-\d{4}\b$/g;
+const regex3 = /^\d{3}-\d{3}-\d{4}\b$/g;
+let newStr = "";
+
 function telephoneCheck(str) {
+  if (str.charAt(0) == 1) {
+    newStr = str.replace(/\s/g, '').slice(1);
+  } else newStr = str.replace(/\s/g, '');
 
-//Check if first character is numeral or bracket around the first 3 digits
-  const numeral = /^[0-9]/;
-  if (str.charAt(0).match(numeral) || 
-  (str.charAt(0) === "(" && str.charAt(4) === ")")) { /* start of if(1) */
-
-//Remove all the non-numeric chracters
-    const justNumerals = str.replace(/[^a-z0-9]/gi, '');
-
-if (justNumerals.charAt(0) === "1" &&
-    justNumerals.length === 11) { /* start of if(2) */
-      return true; 
-      } else if (justNumerals.length === 10) { /* end of if(2), start of if (3) */
-      return true;
-      } return false;/* end of if(3) */
-  } /* end of if(1) */
+  if (regex1.test(newStr)||regex2.test(newStr)||regex3.test(newStr)) {
+    return true;
+  } else return false;
 }
 
 
