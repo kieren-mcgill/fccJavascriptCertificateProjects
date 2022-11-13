@@ -80,7 +80,7 @@ rot13("SERR PBQR PNZC");
 
 
 
-//Telephone number validator - worked but didn't pass all the tests. Need to look at checking the length of the different mini-strings of numberals
+//Telephone number validator
 
 const regex1 = /^\b\d{10}\b$/g;
 const regex2 = /^\(\d{3}\)\d{3}-\d{4}\b$/g;
