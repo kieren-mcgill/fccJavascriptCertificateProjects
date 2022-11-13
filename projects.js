@@ -28,6 +28,17 @@ if (frontOfArray.join("") == reversedBackOfArray.join("")) {
 }
 }
 
+//Palindrome Checker refactored!
+
+function palindrome (str) {
+  const newStr = str.replace(/[^a-z0-9]/gi, '').toLowerCase();
+  for (let i = 0; i < newStr.length; i++) {
+    if (newStr.charAt(0 +i) !== newStr.charAt((newStr.length - 1) - i)) {
+      return false;
+    }
+  } return true
+}
+
 //Caesars Cipher
 
 const alpha = [
