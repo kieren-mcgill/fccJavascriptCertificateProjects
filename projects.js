@@ -119,3 +119,56 @@ function convertToRoman(num) {
   }
   return digitAsNumeral.join("");
 }
+
+
+//Cash Register
+
+function checkCashRegister(price, cash, cid) {
+  const currency = [0.01, 0.05, 0.1, 0.25, 1, 5, 10, 20, 100];
+  let changeNeeded = cash - price; //running total of remaining change to give.
+  let changeGiven = [["PENNY", 0], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]];
+  let arrToReturn = [];
+  
+  //Starting condition of coinsNotes
+  let coinsNotes = [[], [], [], [], [], [], [], [], []];
+  for (let i = 8; i >= 0; i--) {
+    let coinNoteCount = cid[i][1]/currency[i];
+    for (let j = 0; j < coinNoteCount; j++) {
+      coinsNotes[i].push(currency[i])
+    } 
+  }
+  //Starting condition of cashInRegister
+  let cashInRegister = 0;
+  for (let k = 0; k <= 8; k++) {
+  cashInRegister += cid[k][1];
+} cashInRegister = Math.round(cashInRegister*100)/100;
+
+//Populates the array to return if change can be given
+for (let l = 8; l >= 0; l--) {
+  for (let m = 0; m < coinsNotes[l].length; m++) {
+    if (coinsNotes[l][m] <= changeNeeded) {
+        changeGiven[l][1] += coinsNotes[l][m];
+        cashInRegister -= coinsNotes[l][m];
+        cashInRegister = Math.round(cashInRegister*100)/100;
+        changeNeeded -= coinsNotes[l][m];
+        changeNeeded = Math.round(changeNeeded*100)/100;
+      }
+    } 
+//Inelegent solution to decimal problem
+    var changeGivenRounded = [["PENNY", Math.round(changeGiven[0][1]*100)/100], ["NICKEL", Math.round(changeGiven[1][1]*100)/100], 
+                              ["DIME", Math.round(changeGiven[2][1]*100)/100], ["QUARTER", Math.round(changeGiven[3][1]*100)/100], 
+                              ["ONE", Math.round(changeGiven[4][1]*100)/100], ["FIVE", Math.round(changeGiven[5][1]*100)/100], 
+                              ["TEN", Math.round(changeGiven[6][1]*100)/100], ["TWENTY", Math.round(changeGiven[7][1]*100)/100], 
+                              ["ONE HUNDRED", Math.round(changeGiven[8][1]*100)/100]];
+    
+    if (changeGiven[l][1] > 0) {
+  arrToReturn.push(changeGivenRounded[l]);
+  }  
+}
+
+return (changeNeeded > 0 ? 
+{status: "INSUFFICIENT_FUNDS", change: []} :
+changeNeeded === cashInRegister ? {status: "CLOSED", change: changeGivenRounded} :
+{status: "OPEN", change: arrToReturn});
+}
+
